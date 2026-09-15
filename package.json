@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "bin": {
-    "breadcrumbs": "./bin/breadcrumbs.js"
+    "breadcrumbs": "bin/breadcrumbs.js"
   },
   "exports": {
     ".": "./src/index.js",
