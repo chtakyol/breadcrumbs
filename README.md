@@ -32,7 +32,7 @@ End-of-session reports are written to `.breadcrumbs/reports/` automatically wher
 ## How it works
 
 - **Claude Code**: adds `PreToolUse` (matcher `Bash`) and `Stop` hooks to `.claude/settings.json`.
-- **OpenCode**: creates `.opencode/plugin/breadcrumbs.mjs` re-exporting the package's plugin (`tool.execute.before` + `session.idle`).
+- **OpenCode**: creates `.opencode/plugin/breadcrumbs.js` re-exporting the package's plugin (`tool.execute.before` + `session.idle`).
 - Nothing is blocked or altered; failures are reported to stderr only.
 
 `breadcrumbs init` is idempotent — running it twice never duplicates hook entries.

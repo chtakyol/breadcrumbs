@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readFileSync, writeFileSync, appendFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync, appendFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { readLog } from "../src/logger.js";
 import { buildReport } from "../src/report.js";
@@ -7,6 +7,9 @@ import { addClaudeHooks, PRE_TOOL_COMMAND, STOP_COMMAND } from "../src/settings-
 import { handlePreToolUse, handleStop } from "../src/claude-hook.js";
 
 const OPENCODE_STUB = `import plugin from "agent-shell-breadcrumbs/opencode";
+export default plugin;
+`;
+const OPENCODE_STUB_LEGACY_MJS = `import plugin from "agent-shell-breadcrumbs/opencode";
 export default plugin;
 `;
 
@@ -19,13 +22,20 @@ function init() {
   const done = [];
 
   const pluginDir = join(root, ".opencode", "plugin");
-  const pluginFile = join(pluginDir, "breadcrumbs.mjs");
+  const pluginFile = join(pluginDir, "breadcrumbs.js");
   mkdirSync(pluginDir, { recursive: true });
+
+  const legacyFile = join(pluginDir, "breadcrumbs.mjs");
+  if (existsSync(legacyFile) && readFileSync(legacyFile, "utf8") === OPENCODE_STUB_LEGACY_MJS) {
+    rmSync(legacyFile);
+    done.push("opencode plugin: removed obsolete breadcrumbs.mjs");
+  }
+
   if (existsSync(pluginFile) && readFileSync(pluginFile, "utf8") === OPENCODE_STUB) {
     done.push("opencode plugin: already present (skipped)");
   } else {
     writeFileSync(pluginFile, OPENCODE_STUB);
-    done.push("opencode plugin: written .opencode/plugin/breadcrumbs.mjs");
+    done.push("opencode plugin: written .opencode/plugin/breadcrumbs.js");
   }
 
   const settingsFile = join(root, ".claude", "settings.json");
