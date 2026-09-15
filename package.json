@@ -18,6 +18,14 @@
   "engines": {
     "node": ">=20"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chtakyol/breadcrumbs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chtakyol/breadcrumbs/issues"
+  },
+  "homepage": "https://github.com/chtakyol/breadcrumbs",
   "scripts": {
     "test": "node --test"
   },
