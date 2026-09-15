@@ -1,0 +1,33 @@
+{
+  "name": "agent-shell-breadcrumbs",
+  "version": "0.1.0",
+  "description": "Persistent, reviewable record of every shell command an AI coding agent executed",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "breadcrumbs": "./bin/breadcrumbs.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./opencode": "./src/opencode.js"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "claude",
+    "opencode",
+    "audit",
+    "shell",
+    "logging"
+  ]
+}
